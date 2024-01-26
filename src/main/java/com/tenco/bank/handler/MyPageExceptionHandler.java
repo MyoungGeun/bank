@@ -18,6 +18,7 @@ public class MyPageExceptionHandler {
 	// CustomPageException <-- 발생 되면 이 함수를 동작 시켜!
 	@ExceptionHandler(CustomPageException.class)
 	public ModelAndView handlerRuntionException(CustomPageException e) {
+		System.out.println("여기 에러 확인 ~~~~~~~~~");
 		ModelAndView modelAndView = new ModelAndView("errorPage");
 		modelAndView.addObject("statusCode", HttpStatus.NOT_FOUND.value());		
 		modelAndView.addObject("message", e.getMessage());
