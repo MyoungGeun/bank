@@ -18,7 +18,7 @@ public class Account {
 	private String number;
 	private String password;
 	private Long balance; // 잔액
-	private Integer user_id;
+	private Integer userId;
 	private Timestamp created_at;
 	
 	// 출금 기능
