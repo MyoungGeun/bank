@@ -26,6 +26,7 @@
 </div>
 </br>
 </div>
+</div>
 
 <!-- footer.jsp -->
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
