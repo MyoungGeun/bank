@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!-- header.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="col-sm-8">
 	<h2>나의 계좌 목록</h2>
@@ -23,7 +24,7 @@
 					<c:forEach var="account" items="${accountList}">
 						<tr>
 							<td>${account.number}</td>
-							<td>${account.balance}</td>
+							<td>${account.formatBalance()}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

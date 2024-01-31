@@ -10,7 +10,7 @@ import com.tenco.bank.repository.entity.Account;
 public interface AccountRepository {
 	
 	public int insert(Account account);
-	public int update(Account account);
+	public int updateById(Account account);
 	public int deletById(Integer id);
 	
 	// 계좌 조회 - 1 유저 , N 계좌
