@@ -6,7 +6,7 @@ import lombok.Data;
 public class TransferFormDto {
 	
 	private Long amount;
-	private String wAccountNumber;
-	private String wAccountPassword;
-	private String dAccountNumber;
+	private String wAccountNumber; // 출금 계좌
+	private String password; 
+	private String dAccountNumber; // 입금 계좌
 }

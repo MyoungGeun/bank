@@ -25,5 +25,10 @@
 		resultType="com.tenco.bank.repository.entity.Account">
 		select * from account_tb where number = #{number}
 	</select>
-
+	
+	<select id="findByAccountId"
+		resultType="com.tenco.bank.repository.entity.Account">
+		select * from account_tb where id = #{id}
+	</select>
+	
 </mapper>

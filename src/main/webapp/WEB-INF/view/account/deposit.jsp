@@ -10,7 +10,8 @@
 		<h5>어서오세요 환영합니다</h5>
 		<form action="/account/deposit" method="post">
 			<div class="form-group">
-				<label for="amount">입금 금액 : </label> <input type="text"
+				<label for="amount">입금 금액 : </label> 
+				<input type="text"
 					name="amount" class="form-control" placeholder="입금 금액" id="amount"
 					value="1000">
 			</div>
