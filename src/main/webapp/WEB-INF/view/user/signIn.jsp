@@ -20,8 +20,7 @@
 	  <button type="submit" class="btn btn-primary">로그인</button>
 	</form>
 </div>
-</br>
-</div>
+<br>
 
 <!-- footer.jsp -->
 <%@ include file="/WEB-INF/view/layout/footer.jsp" %>   
