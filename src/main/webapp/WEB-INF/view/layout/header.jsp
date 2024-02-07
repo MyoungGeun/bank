@@ -49,15 +49,6 @@
 						</li>
 					</c:otherwise>
 				</c:choose>
-
-
-
-
-
-
-
-
-
 			</ul>
 		</div>
 	</nav>
@@ -68,14 +59,15 @@
 				<h2>About Me</h2>
 				<h5>Photo of me:</h5>
 				<!-- 로그인 여부에 따라 코드 추가하기 -->
-                <c:choose>
-                <c:when test="${principal != null}">
-                <img class="m--profile" alt="" src="${principal.setUpUserImage()}"  style="border-radius: 5px">
-                </c:when>
-                <c:otherwise>
-                <div class="m--profile"></div>
-                </c:otherwise>
-                </c:choose>
+				<c:choose>
+					<c:when test="${principal != null}">
+						<img class="m--profile" alt="" src="${principal.setUpUserImage()}"
+							style="border-radius: 5px">
+					</c:when>
+					<c:otherwise>
+						<div class="m--profile"></div>
+					</c:otherwise>
+				</c:choose>
 				<p>중단기 심화 - 은행 관리 시스템 예제</p>
 				<h3>Some Links</h3>
 				<p>Lorem ipsum dolor sit ame.</p>
@@ -94,4 +86,4 @@
 				<hr class="d-sm-none">
 			</div>
 
-	<!-- end og header  -->
+			<!-- end og header  -->

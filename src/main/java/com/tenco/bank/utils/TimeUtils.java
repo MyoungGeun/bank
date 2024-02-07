@@ -6,9 +6,9 @@ import java.text.SimpleDateFormat;
 public class TimeUtils {
 
 	public static String timestampToString(Timestamp timestamp) {
-		// yyyy-MM-dd HH:mm:ss
-		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		 return sdf.format(timestamp);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return sdf.format(timestamp);
 	}
-	
+
 }

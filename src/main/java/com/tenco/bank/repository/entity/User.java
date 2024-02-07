@@ -24,7 +24,10 @@ public class User {
 	private String originFileName;
 	private String uploadFileName;
 	
-	// 사용자가 회원가입시, 이미지, 이미지 x
+	/**
+	 * 회원 가입 시 이미지 삽입 확인 기능
+	 * @return "/images/upload/" + uploadFileName
+	 */
 	public String setUpUserImage() {
 		return uploadFileName == null ?
 				"http://picsum.photos/id/1/350" : "/images/upload/" + uploadFileName;

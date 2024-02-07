@@ -1,6 +1,7 @@
 package com.tenco.bank.repository.entity;
 
 import java.sql.Timestamp;
+
 import java.text.DecimalFormat;
 
 import com.tenco.bank.utils.TimeUtils;
@@ -25,8 +26,11 @@ public class CustomHistoryEntity {
 	public String formatCreatedAt() {
 		return TimeUtils.timestampToString(createdAt);
 	}
-	
-	
+		
+	/**
+	 * format 기능
+	 * 
+	 */
 	public String formatBalance() {
 		DecimalFormat df = new DecimalFormat("#,###");
 		String formatNumber = df.format(balance);

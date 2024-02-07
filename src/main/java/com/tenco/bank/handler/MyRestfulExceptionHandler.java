@@ -11,7 +11,6 @@ import com.tenco.bank.handler.exception.UnAuthorizedException;
 @RestControllerAdvice
 public class MyRestfulExceptionHandler {
 	
-	// 모든 예외 클래스 설정 
 	@ExceptionHandler(Exception.class)
 	public void exception(Exception e) {
 		System.out.println("--------------");

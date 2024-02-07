@@ -7,11 +7,9 @@ import lombok.Data;
 
 @Data
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class OAuthToken {
+public class AccessToken {
 	private String accessToken;
-	private String tokenType;
 	private String refreshToken;
-	private String expriesIn;
-	private String scope;
-	private int refreshTokenExpiresIn;
+	private String tokenType;
+	private String expiresIn;
 }

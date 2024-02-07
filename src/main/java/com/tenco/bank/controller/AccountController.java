@@ -17,7 +17,6 @@ import com.tenco.bank.dto.DepositFormDto;
 import com.tenco.bank.dto.TransferFormDto;
 import com.tenco.bank.dto.WithdrawFormDto;
 import com.tenco.bank.handler.exception.CustomRestfulException;
-import com.tenco.bank.handler.exception.UnAuthorizedException;
 import com.tenco.bank.repository.entity.Account;
 import com.tenco.bank.repository.entity.CustomHistoryEntity;
 import com.tenco.bank.repository.entity.User;
@@ -43,22 +42,21 @@ public class AccountController {
 	@GetMapping("/save")
 	public String savePage() {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		
+
 		return "account/saveForm";
 	}
 
 	/**
-	 * 계좌 생성 처리
+	 * 계좌 생성 로직
 	 * 
 	 * @param dto
 	 * @return list.jsp
 	 */
 	@PostMapping("/save")
 	public String saveProc(AccountSaveFormDto dto) {
-		// 1. 인증 검사
+
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		
-		// 2. 유효성 검사
+
 		if (dto.getNumber() == null || dto.getNumber().isEmpty()) {
 			throw new CustomRestfulException("계좌번호를입력하세요", HttpStatus.BAD_REQUEST);
 		}
@@ -75,16 +73,15 @@ public class AccountController {
 	}
 
 	/**
-	 * 계좌 목록 페이지
+	 * 계좌 목록 페이지 요청
 	 * 
 	 * @param model - accountList
 	 * @return list.jsp
 	 */
 	@GetMapping({ "/list", "/" })
 	public String listPage(Model model) {
-		// 1. 인증 검사
+
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		
 
 		List<Account> accountList = accountService.readAccountListByUserId(principal.getId());
 
@@ -97,19 +94,27 @@ public class AccountController {
 		return "account/list";
 	}
 
-	// 출금 페이지 요청
+	/**
+	 * 출금 페이지 요청
+	 * 
+	 * @return withdraw.jsp
+	 */
 	@GetMapping("/withdraw")
 	public String withdrawPage() {
 		return "account/withdraw";
 	}
 
-	// 출금 요청 로직 만들기
+	/**
+	 * 출금 요청 로직
+	 * 
+	 * @param dto
+	 * @return list.jsp
+	 */
 	@PostMapping("/withdraw")
 	public String withdrawProc(WithdrawFormDto dto) {
-		// 인증 검사
+
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		
-		// 유효성 검사
+
 		if (dto.getAmount() == null) {
 			throw new CustomRestfulException("금액을 입력 하시오", HttpStatus.BAD_REQUEST);
 		}
@@ -126,25 +131,32 @@ public class AccountController {
 			throw new CustomRestfulException("계좌 비밀 번호를 입력 하시오", HttpStatus.BAD_REQUEST);
 		}
 
-		// 서비스 호출
 		accountService.updateAccountWithdraw(dto, principal.getId());
 
 		return "redirect:/account/list";
 	}
 
-	// 입금 페이지 요청
+	/**
+	 * 입금 페이지 요청
+	 * 
+	 * @return deposit.jsp
+	 */
 	@GetMapping("/deposit")
 	public String depositPage() {
 		return "account/deposit";
 	}
 
-	// 입금 요청 로직
+	/**
+	 * 입급 요청 로직
+	 * 
+	 * @param dto
+	 * @return list.jsp
+	 */
 	@PostMapping("/deposit")
 	public String depositProc(DepositFormDto dto) {
-		// 1. 인증 검사
-		User principal = (User) session.getAttribute(Define.PRINCIPAL); // 다운 캐스팅
-		
-		// 2. 유효성 검사
+
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+
 		if (dto.getAmount() == null) {
 			throw new CustomRestfulException(Define.ENTER_YOUR_BALANCE, HttpStatus.BAD_REQUEST);
 		}
@@ -155,26 +167,33 @@ public class AccountController {
 			throw new CustomRestfulException(Define.ENTER_YOUR_ACCOUNT_NUMBER, HttpStatus.BAD_REQUEST);
 		}
 
-		// 서비스 호출
 		accountService.updateAccountDeposit(dto, principal.getId());
 
 		return "redirect:/account/list";
 
 	}
 
-	// 이체 페이지 요청
+	/**
+	 * 이체 페이지 로직
+	 * 
+	 * @return transfer.jsp
+	 */
 	@GetMapping("/transfer")
 	public String transferPage() {
 		return "account/transfer";
 	}
 
-	// 이체 요청 로직
+	/**
+	 * 이체 요청 로직
+	 * 
+	 * @param dto
+	 * @return list.jsp
+	 */
 	@PostMapping("/transfer")
 	public String transferProc(TransferFormDto dto) {
-		// 1. 인증 검사
-		User principal = (User) session.getAttribute(Define.PRINCIPAL); // 다운 캐스팅
 
-		// 2. 유효성 검사
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+
 		if (dto.getAmount() == null) {
 			throw new CustomRestfulException(Define.ENTER_YOUR_BALANCE, HttpStatus.BAD_REQUEST);
 		}
@@ -191,30 +210,31 @@ public class AccountController {
 			throw new CustomRestfulException(Define.ENTER_YOUR_PASSWORD, HttpStatus.BAD_REQUEST);
 		}
 
-		// 서비스 호출
 		accountService.updateAccountTransfer(dto, principal.getId());
 
 		return "redirect:/account/list";
 	}
-	
-	// 계좌 상세 보기 페이지 -- 전체(입출금), 입금, 출금
-	// http://localhost:80/account/detail/1
+
+	/**
+	 * 계좌 상세 보기 페이지 요청 -- 전체(입출금), 입금, 출금
+	 * 
+	 * @param id
+	 * @param type
+	 * @param model
+	 * @return detail.jsp
+	 */
 	@GetMapping("/detail/{id}")
-	public String detail(@PathVariable Integer id, 
-			@RequestParam(name = "type", 
-						  defaultValue = "all", required = false) String type, 
-			Model model) {
-					
-		
+	public String detail(@PathVariable Integer id,
+			@RequestParam(name = "type", defaultValue = "all", required = false) String type, Model model) {
+
 		Account account = accountService.readByAccountId(id);
-		
-		// 서스비 호출
+
 		List<CustomHistoryEntity> historyList = accountService.readHistoryListByAccount(type, id);
 		System.out.println("list : " + historyList.toString());
-		
+
 		model.addAttribute("account", account);
 		model.addAttribute("historyList", historyList);
-		
+
 		return "account/detail";
 	}
 
